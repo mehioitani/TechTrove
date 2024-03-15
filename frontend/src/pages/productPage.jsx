@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   Row,
   Col,
@@ -14,10 +14,14 @@ import Rating from "../components/rating.jsx";
 import Loader from "../components/loader.jsx";
 import Message from "../components/message.jsx";
 import { useGetProductsDetailsQuery } from "../slices/productsApiSlice.js";
+import { addToCart } from "../slices/cartSlice.js";
 
 const ProductPage = () => {
   // extract the id parameter from the current URL, get the value of the id parameter and assigning it to a new variable called productId
   const { id: productId } = useParams();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [qty, setQty] = useState(1);
 
@@ -27,9 +31,10 @@ const ProductPage = () => {
     error,
   } = useGetProductsDetailsQuery(productId);
 
-  // find the product in the Products array that has an _id property equal to productId (JUST READ IT)
-  // const product = products.find((p) => p._id === productId);
-  // console.log(product);
+  const addToCartHandler = () => {
+    dispatch(addToCart({ ...product, qty }));
+    navigate("/cart");
+  };
 
   console.log("this is the product", product);
   console.log("this is the productID:", productId);
@@ -101,8 +106,12 @@ const ProductPage = () => {
                           value={qty}
                           onChange={(e) => setQty(Number(e.target.value))}
                         >
-                          {/* ...Array: how many products in stock, keys:indexes */}
-                          {[...Array(product?.countInStock).keys()]}
+                          {/* ...Array(length of stocks): how many products in stock, keys:indexes */}
+                          {[...Array(product?.countInStock).keys()].map((x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          ))}
                         </Form.Control>
                       </Col>
                     </Row>
@@ -113,6 +122,7 @@ const ProductPage = () => {
                     className="btn-block"
                     type="button"
                     disabled={product?.countInStock === 0}
+                    onClick={addToCartHandler}
                   >
                     Add To Cart
                   </Button>
