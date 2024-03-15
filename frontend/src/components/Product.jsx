@@ -6,11 +6,11 @@ const Product = ({ product }) => {
   return (
     <Card className="my-3 p-3 rounded">
       {/* when u press on a product it will link you to that specific product with his own id */}
-      <Link to={`/product/${product._id}`}>
+      <Link to={`/products/${product._id}`}>
         <Card.Img src={product.image} variant="top" />
       </Link>
       <Card.Body>
-        <Link to={`/product/${product._id}`}>
+        <Link to={`/products/${product._id}`}>
           <Card.Title as="div" className="product-title">
             <strong>{product.name}</strong>
           </Card.Title>

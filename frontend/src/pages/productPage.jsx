@@ -1,6 +1,5 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import product from "../products.js";
 import { Link } from "react-router-dom";
 import {
   Row,
@@ -9,12 +8,12 @@ import {
   ListGroup,
   Card,
   Button,
-  // Form,
+  Form,
 } from "react-bootstrap";
 import Rating from "../components/rating.jsx";
-// import Loader from "../components/loader.jsx";
-// import Message from "../components/message.jsx";
-// import { useGetTechProductDetailsQuery } from "../slices/techProductApiSlice.js";
+import Loader from "../components/loader.jsx";
+import Message from "../components/message.jsx";
+import { useGetProductsDetailsQuery } from "../slices/productsApiSlice.js";
 
 const ProductPage = () => {
   // extract the id parameter from the current URL, get the value of the id parameter and assigning it to a new variable called productId
@@ -25,8 +24,8 @@ const ProductPage = () => {
   const {
     data: product,
     isLoading,
-    isError,
-  } = useGetTechProductDetailsQuery(productId);
+    error,
+  } = useGetProductsDetailsQuery(productId);
 
   // find the product in the Products array that has an _id property equal to productId (JUST READ IT)
   // const product = products.find((p) => p._id === productId);
@@ -34,7 +33,7 @@ const ProductPage = () => {
 
   console.log("this is the product", product);
   console.log("this is the productID:", productId);
-  console.log([...Array(product.countInStock).keys()]);
+  console.log([...Array(product?.countInStock).keys()]);
   return (
     <>
       <Link className="btn btn-light my-3" to="/">
@@ -43,9 +42,9 @@ const ProductPage = () => {
 
       {isLoading ? (
         <Loader />
-      ) : isError ? (
+      ) : error ? (
         <Message variant="danger">
-          {isError?.data?.message || isError.error}
+          {error?.data?.message || error.error}
         </Message>
       ) : (
         <Row>
@@ -84,13 +83,15 @@ const ProductPage = () => {
                     <Col>Status:</Col>
                     <Col>
                       <strong>
-                        {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
+                        {product?.countInStock > 0
+                          ? "In Stock"
+                          : "Out Of Stock"}
                       </strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
 
-                {product.countInStock > 0 && (
+                {product?.countInStock > 0 && (
                   <ListGroup.Item>
                     <Row>
                       <Col>Qty</Col>
@@ -101,7 +102,7 @@ const ProductPage = () => {
                           onChange={(e) => setQty(Number(e.target.value))}
                         >
                           {/* ...Array: how many products in stock, keys:indexes */}
-                          {[...Array(product.countInStock).keys()]}
+                          {[...Array(product?.countInStock).keys()]}
                         </Form.Control>
                       </Col>
                     </Row>
@@ -111,7 +112,7 @@ const ProductPage = () => {
                   <Button
                     className="btn-block"
                     type="button"
-                    disabled={product.countInStock === 0}
+                    disabled={product?.countInStock === 0}
                   >
                     Add To Cart
                   </Button>

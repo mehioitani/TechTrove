@@ -18,5 +18,5 @@ export const productsApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetTechProductsQuery, useGetTechProductDetailsQuery } =
+export const { useGetProductsQuery, useGetProductsDetailsQuery } =
   productsApiSlice;
