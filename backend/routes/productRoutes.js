@@ -11,11 +11,11 @@ import {
 } from "../controller/productController.js";
 // import {  ,    } from '../middleware/authMiddleware.js'
 
-router.route("/products").get(getProducts);
+router.get("/products",getProducts)
 // .post(createTechProduct);
 // router.route("techProduct/:id/reviews").post(createProductReview);
 // router.get("/top", getTopProducts);
-router.route("/products/:id").get(getProductById);
+router.get("/products/:id",getProductById)
 // .delete(deleteTechProduct)
 // .put(updateTechProduct);
 
