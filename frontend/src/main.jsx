@@ -14,12 +14,14 @@ import "./assets/styles/index.css";
 import App from "./App.jsx";
 import HomePage from "./pages/HomeScreen.jsx";
 import ProductPage from "./pages/productPage.jsx";
+import CartPage from "./pages/cartPage.jsx";
 // index{true} if we don't set it, it will show multiple screens at once
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomePage />} />
       <Route path="/products/:id" element={<ProductPage />} />
+      <Route path="/cart" element={<CartPage />} />
     </Route>
   )
 );
