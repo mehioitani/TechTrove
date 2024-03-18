@@ -6,6 +6,7 @@ import ConnectDB from "./config/db.js";
 // import orderRoute from "./routes/techOrderRoute.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 import cors from "cors";
 import colors from "colors";
 
@@ -19,7 +20,14 @@ const app = express();
 // app.use("/uploads", express.static("uploads"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+// const cors = require('cors');
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 // Cookie parser middleware
 app.use(cookieParser());
@@ -28,6 +36,7 @@ app.use(cookieParser());
 // app.use("/", orderRoute);
 app.use("/api", productRoutes);
 app.use("/api", userRoutes);
+app.use("/api", orderRoutes);
 
 app.use(errorHandler);
 
