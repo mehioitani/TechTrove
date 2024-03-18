@@ -19,6 +19,8 @@ import LoginPage from "./pages/loginPage.jsx";
 import RegisterPage from "./pages/registerPage.jsx";
 import ShippingPage from "./pages/shippingPage.jsx";
 import PrivateRoute from "./components/privateRoute.jsx";
+import PaymentPage from "./pages/paymentPage.jsx";
+import PlaceOrderPage from "./pages/placeOrderPage.jsx";
 // index{true} if we don't set it, it will show multiple screens at once
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +33,9 @@ const router = createBrowserRouter(
 
       <Route path="" element={<PrivateRoute />}>
         <Route path="/shipping" element={<ShippingPage />} />
+
+        <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/placeorder" element={<PlaceOrderPage />} />
       </Route>
     </Route>
   )

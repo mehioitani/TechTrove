@@ -4,11 +4,12 @@ import FormContainer from "../components/formContainer.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { saveShippingAddress } from "../slices/cartSlice.js";
+import CheckoutSteps from "../components/checkoutSteps.jsx";
 
 const ShippingPage = () => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
-// even when refreshing the entered shipping address will stay
+  // even when refreshing the entered shipping address will stay
   const [address, setAddress] = useState(shippingAddress?.address || "");
   const [city, setCity] = useState(shippingAddress?.city || "");
   const [postalCode, setPostalCode] = useState(
@@ -26,6 +27,9 @@ const ShippingPage = () => {
   };
   return (
     <FormContainer>
+      {/* step 1 & 2 so only these 2 steps will be visible when accessing the shipping page(signin and shipping) */}
+      <CheckoutSteps step1 step2 />
+
       <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="address" className="my-2">
