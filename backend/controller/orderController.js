@@ -74,7 +74,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   if (order) {
     order.isPaid = true;
     order.paidAt = Date.now();
-    // these stuffs gonna come from PayPall
+    // these stuffs gonna come from PayPalll
     order.paymentResult = {
       id: req.body.id,
       status: req.body.status,
