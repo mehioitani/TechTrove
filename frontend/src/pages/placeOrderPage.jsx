@@ -18,9 +18,9 @@ const PlaceOrderPage = () => {
 
   useEffect(() => {
     if (!cart.shippingAddress.address) {
-      navigate('/shipping');
+      navigate("/shipping");
     } else if (!cart.paymentMethod) {
-      navigate('/payment');
+      navigate("/payment");
     }
   }, [cart.paymentMethod, cart.shippingAddress.address, navigate]);
 
@@ -38,7 +38,7 @@ const PlaceOrderPage = () => {
       }).unwrap();
       dispatch(clearCartItems());
       navigate(`/orders/${res._id}`);
-      console.log('response:',res)
+      console.log("response:", res);
     } catch (err) {
       toast.error(err);
     }
@@ -49,13 +49,13 @@ const PlaceOrderPage = () => {
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
         <Col md={8}>
-          <ListGroup variant='flush'>
+          <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Shipping</h2>
               <p>
                 <strong>Address:</strong>
-                {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
-                {cart.shippingAddress.postalCode},{' '}
+                {cart.shippingAddress.address}, {cart.shippingAddress.city}{" "}
+                {cart.shippingAddress.postalCode},{" "}
                 {cart.shippingAddress.country}
               </p>
             </ListGroup.Item>
@@ -71,7 +71,7 @@ const PlaceOrderPage = () => {
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty</Message>
               ) : (
-                <ListGroup variant='flush'>
+                <ListGroup variant="flush">
                   {cart.cartItems.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
@@ -84,7 +84,7 @@ const PlaceOrderPage = () => {
                           />
                         </Col>
                         <Col>
-                          <Link to={`/product/${item.product}`}>
+                          <Link to={`/products/${item.product}`}>
                             {item.name}
                           </Link>
                         </Col>
@@ -102,7 +102,7 @@ const PlaceOrderPage = () => {
         </Col>
         <Col md={4}>
           <Card>
-            <ListGroup variant='flush'>
+            <ListGroup variant="flush">
               <ListGroup.Item>
                 <h2>Order Summary</h2>
               </ListGroup.Item>
@@ -132,13 +132,13 @@ const PlaceOrderPage = () => {
               </ListGroup.Item>
               <ListGroup.Item>
                 {error && (
-                  <Message variant='danger'>{error.data.message}</Message>
+                  <Message variant="danger">{error.data.message}</Message>
                 )}
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button
-                  type='button'
-                  className='btn-block'
+                  type="button"
+                  className="btn-block"
                   disabled={cart.cartItems === 0}
                   onClick={placeOrderHandler}
                 >
