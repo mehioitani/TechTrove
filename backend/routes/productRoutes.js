@@ -4,18 +4,17 @@ import {
   getProducts,
   getProductById,
   // deleteTechProduct,
-  // createTechProduct,
+  createProduct,
   // updateTechProduct,
   // createProductReview,
   // getTopProducts,
 } from "../controller/productController.js";
-// import {  ,    } from '../middleware/authMiddleware.js'
+import { protect, admin } from "../middlewares/authMiddleware.js";
 
-router.get("/products",getProducts)
-// .post(createTechProduct);
+router.route("/products").get(getProducts).post(protect, admin, createProduct);
 // router.route("techProduct/:id/reviews").post(createProductReview);
 // router.get("/top", getTopProducts);
-router.get("/products/:id",getProductById)
+router.get("/products/:id", getProductById);
 // .delete(deleteTechProduct)
 // .put(updateTechProduct);
 
