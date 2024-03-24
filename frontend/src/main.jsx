@@ -29,6 +29,7 @@ import OrderListPage from "./pages/admin/orderListPage.jsx";
 import ProductListPage from "./pages/admin/productListPage.jsx";
 import ProductEditPage from "./pages/admin/productEditPage.jsx";
 import UserListPage from "./pages/admin/userListPage.jsx";
+import UserEditPage from "./pages/admin/userEditPage.jsx";
 // index{true} if we don't set it, it will show multiple screens at once
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -53,6 +54,7 @@ const router = createBrowserRouter(
         <Route path="/admin/productlist" element={<ProductListPage />} />
         <Route path="/admin/products/:id/edit" element={<ProductEditPage />} />
         <Route path="/admin/userlist" element={<UserListPage />} />
+        <Route path="/admin/user/:id/edit" element={<UserEditPage />} />
       </Route>
     </Route>
   )
