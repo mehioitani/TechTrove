@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -7,6 +8,7 @@ import ConnectDB from "./config/db.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 import cors from "cors";
 import colors from "colors";
 
@@ -17,10 +19,10 @@ ConnectDB();
 const port = process.env.PORT;
 
 const app = express();
-// app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static("uploads"));
+app.use('/images', express.static('images'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// const cors = require('cors');
 
 app.use(
   cors({
@@ -37,10 +39,14 @@ app.use(cookieParser());
 app.use("/api", productRoutes);
 app.use("/api", userRoutes);
 app.use("/api", orderRoutes);
+app.use("/api", uploadRoutes);
 
 app.get("/api/config/paypal", (req, res) =>
   res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
 );
+
+// const __dirname = path.resolve(); 
+// app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.use(errorHandler);
 
