@@ -8,7 +8,7 @@ const reviewSchema = mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "User",
+      ref: 'User',
     },
   },
   {
@@ -21,7 +21,7 @@ const productSchema = mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "User",
+      ref: 'User',
     },
     name: {
       type: String,
@@ -70,6 +70,6 @@ const productSchema = mongoose.Schema(
   }
 );
 
-const techProduct = mongoose.model("Product", productSchema);
+const Product = mongoose.model('Product', productSchema);
 
-export default techProduct;
+export default Product;

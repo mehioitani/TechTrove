@@ -5,8 +5,23 @@ import Product from "../models/productModel.js";
 // @route   GET /techProduct
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
-  res.json(products);
+  const pageSize = 8;
+  const page = Number(req.query.pageNumber || 1);
+  // we don't set it directly instead we use regex to match whatever is the entered keyword(eg: searching for iphone 15 and entering only "phone" word so we can get a search result)
+  // 'i' case insensitive
+  const keyword = req.query.keyword
+    ? { name: { $regex: req.query.keyword, $options: "i" } }
+    : {};
+
+  // get the number of products
+  // we pass the keyword also in count because we don't want it to limit the count so the countDocuments in addition to the keywords
+  const count = await Product.countDocuments({ ...keyword });
+  // .skip (if we are on the 2nd page we want to skip products on the first page, etc...)
+  // pass keyword to find the product depending on it IF there is a keyword
+  const products = await Product.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+  res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 // @desc    Fetch single product
@@ -102,11 +117,12 @@ const createProductReview = asyncHandler(async (req, res) => {
       // name coming from the logged in user,
       // user which is the user id coming from the req object,
       // rating and comment from body
-      name: review.user.name,
+      name: req?.user?.name,
       rating: Number(rating),
       comment,
-      user: req.user._id,
+      user: req?.user?._id,
     };
+    console.log(req.user);
     // take the product reviews and push to them the new review
     product.reviews.push(review);
     // set the number of reviews to the length of reviews
