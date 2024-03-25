@@ -5,7 +5,7 @@ import Product from "../models/productModel.js";
 // @route   GET /techProduct
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 8;
+  const pageSize = 1;
   const page = Number(req.query.pageNumber || 1);
   // we don't set it directly instead we use regex to match whatever is the entered keyword(eg: searching for iphone 15 and entering only "phone" word so we can get a search result)
   // 'i' case insensitive

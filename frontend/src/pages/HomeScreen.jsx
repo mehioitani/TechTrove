@@ -5,8 +5,11 @@ import Paginate from "../components/paginate.jsx";
 import { useGetProductsQuery } from "../slices/productsApiSlice.js";
 import Loader from "../components/loader.jsx";
 const HomePage = () => {
-  const { pageNumber } = useParams();
-  const { data, isLoading, error } = useGetProductsQuery({ pageNumber });
+  const { pageNumber, keyword } = useParams();
+  const { data, isLoading, error } = useGetProductsQuery({
+    keyword,
+    pageNumber,
+  });
   console.log("this is the product", data);
   return (
     <>
@@ -24,7 +27,11 @@ const HomePage = () => {
               </Col>
             ))}
           </Row>
-          <Paginate pages={data.pages} page={data.page} />
+          <Paginate
+            pages={data.pages}
+            page={data.page}
+            keyword={keyword ? keyword : ""}
+          />
         </>
       )}
     </>
