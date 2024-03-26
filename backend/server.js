@@ -36,10 +36,7 @@ app.use(
 // Cookie parser middleware
 app.use(cookieParser());
 
-// app.get("/api", (req, res) => {
-//   console.log("Request received for the homepage");
-//   res.send("API is running...");
-// });
+
 const buildPath = path.join(__dirname, '../frontend/dist'); 
 app.use(express.static(buildPath));
 //PROSHOP
@@ -52,6 +49,24 @@ app.use("/api/upload", uploadRoutes);
 app.get("/api/config/paypal", (req, res) =>
   res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
 );
+
+
+// Catch-all handler to serve index.html for any other routes
+app.get('*', (req, res) => {
+ res.sendFile(path.join(buildPath, 'index.html'));
+});
+
+
+app.use(errorHandler);
+
+app.listen(port, () => console.log("server is listening to port: ", port));
+
+
+// app.get("/api", (req, res) => {
+//   console.log("Request received for the homepage");
+//   res.send("API is running...");
+// });
+
 
 // const __dirname = path.resolve();
 // app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
@@ -71,14 +86,3 @@ app.get("/api/config/paypal", (req, res) =>
 //     res.send('API is running....');
 //   });
 // }
-
-
-// Catch-all handler to serve index.html for any other routes
-app.get('*', (req, res) => {
- res.sendFile(path.join(buildPath, 'index.html'));
-});
-
-
-app.use(errorHandler);
-
-app.listen(port, () => console.log("server is listening to port: ", port));
