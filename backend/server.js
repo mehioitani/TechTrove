@@ -10,7 +10,7 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
-// import cors from "cors";
+import cors from "cors";
 import colors from "colors";
 
 dotenv.config();
@@ -26,12 +26,12 @@ app.use("/images", express.static("images"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 // Cookie parser middleware
 app.use(cookieParser());
@@ -40,7 +40,7 @@ app.use(cookieParser());
 //   console.log("Request received for the homepage");
 //   res.send("API is running...");
 // });
-const buildPath = path.join(__dirname, 'dist'); // Adjust 'dist' if your build output is different
+const buildPath = path.join(__dirname, '../frontend/dist'); // Adjust 'dist' if your build output is different
 app.use(express.static(buildPath));
 //PROSHOP
 // app.use("/", orderRoute);
