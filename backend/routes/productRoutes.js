@@ -3,20 +3,22 @@ const router = express.Router();
 import {
   getProducts,
   getProductById,
-  // deleteTechProduct,
-  // createTechProduct,
-  // updateTechProduct,
-  // createProductReview,
-  // getTopProducts,
+  deleteProduct,
+  createProduct,
+  updateProduct,
+  createProductReview,
+  getTopProducts,
 } from "../controller/productController.js";
-// import {  ,    } from '../middleware/authMiddleware.js'
+import { protect, admin } from "../middlewares/authMiddleware.js";
 
-router.get("/products",getProducts)
-// .post(createTechProduct);
-// router.route("techProduct/:id/reviews").post(createProductReview);
+router.route("/").get(getProducts).post(protect, admin, createProduct);
+router.get("/top", getTopProducts);
+router.route("/:id/reviews").post(protect, createProductReview);
 // router.get("/top", getTopProducts);
-router.get("/products/:id",getProductById)
-// .delete(deleteTechProduct)
-// .put(updateTechProduct);
+router
+  .route("/:id")
+  .get(getProductById)
+  .put(protect, admin, updateProduct)
+  .delete(protect, admin, deleteProduct);
 
 export default router;

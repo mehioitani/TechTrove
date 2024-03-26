@@ -7,6 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { HelmetProvider } from "react-helmet-async";
 import { Provider } from "react-redux";
 import store from "./store.js";
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,11 +24,21 @@ import PrivateRoute from "./components/privateRoute.jsx";
 import PaymentPage from "./pages/paymentPage.jsx";
 import PlaceOrderPage from "./pages/placeOrderPage.jsx";
 import OrderPage from "./pages/orderPage.jsx";
+import ProfilePage from "./pages/profilePage.jsx";
+import AdminRoute from "./components/adminRoute.jsx";
+import OrderListPage from "./pages/admin/orderListPage.jsx";
+import ProductListPage from "./pages/admin/productListPage.jsx";
+import ProductEditPage from "./pages/admin/productEditPage.jsx";
+import UserListPage from "./pages/admin/userListPage.jsx";
+import UserEditPage from "./pages/admin/userEditPage.jsx";
 // index{true} if we don't set it, it will show multiple screens at once
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomePage />} />
+      <Route path="/search/:keyword" element={<HomePage />} />
+      <Route path="/page/:pageNumber" element={<HomePage />} />
+      <Route path="/search/:keyword/page/:pageNumber" element={<HomePage />} />
       <Route path="/products/:id" element={<ProductPage />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/login" element={<LoginPage />} />
@@ -39,6 +50,19 @@ const router = createBrowserRouter(
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/placeorder" element={<PlaceOrderPage />} />
         <Route path="/orders/:id" element={<OrderPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+      </Route>
+
+      <Route path="" element={<AdminRoute />}>
+        <Route path="/admin/orderlist" element={<OrderListPage />} />
+        <Route path="/admin/productlist" element={<ProductListPage />} />
+        <Route
+          path="/admin/productlist/:pageNumber"
+          element={<ProductListPage />}
+        />
+        <Route path="/admin/products/:id/edit" element={<ProductEditPage />} />
+        <Route path="/admin/userlist" element={<UserListPage />} />
+        <Route path="/admin/user/:id/edit" element={<UserEditPage />} />
       </Route>
     </Route>
   )
@@ -46,10 +70,12 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PayPalScriptProvider deferLoading={true}>
-        <RouterProvider router={router} />
-      </PayPalScriptProvider>
-    </Provider>
+    <HelmetProvider>
+      <Provider store={store}>
+        <PayPalScriptProvider deferLoading={true}>
+          <RouterProvider router={router} />
+        </PayPalScriptProvider>
+      </Provider>
+    </HelmetProvider>
   </React.StrictMode>
 );
