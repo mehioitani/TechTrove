@@ -40,8 +40,8 @@ app.use(cookieParser());
 //   console.log("Request received for the homepage");
 //   res.send("API is running...");
 // });
-const buildPath = path.join(__dirname, '../frontend/dist'); // Adjust 'dist' if your build output is different
-app.use(express.static(buildPath));
+// const buildPath = path.join(__dirname, '../frontend/dist'); 
+// app.use(express.static(buildPath));
 //PROSHOP
 // app.use("/", orderRoute);
 app.use("/api/products", productRoutes);
@@ -74,9 +74,9 @@ app.get("/api/config/paypal", (req, res) =>
 
 
 // Catch-all handler to serve index.html for any other routes
-app.get('*', (req, res) => {
- res.sendFile(path.join(buildPath, 'index.html'));
-});
+// app.get('*', (req, res) => {
+//  res.sendFile(path.join(buildPath, 'index.html'));
+// });
 
 
 app.use(errorHandler);
