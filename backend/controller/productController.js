@@ -5,7 +5,7 @@ import Product from "../models/productModel.js";
 // @route   GET /techProduct
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 1;
+  const pageSize = 4;
   const page = Number(req.query.pageNumber || 1);
   // we don't set it directly instead we use regex to match whatever is the entered keyword(eg: searching for iphone 15 and entering only "phone" word so we can get a search result)
   // 'i' case insensitive
@@ -143,6 +143,11 @@ const createProductReview = asyncHandler(async (req, res) => {
 // @desc    Get top rated products
 // @route   GET /api/products/top
 // @access  Public
+const getTopProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({}).sort({ rating: -1 }).limit(3);
+
+  res.json(products);
+});
 
 export {
   getProducts,
@@ -151,6 +156,5 @@ export {
   createProduct,
   updateProduct,
   createProductReview,
-  // createProductReview,
-  // getTopProducts,
+  getTopProducts,
 };

@@ -13,16 +13,16 @@ import {
 } from "../controller/userController.js";
 import { protect, admin } from "../middlewares/authMiddleware.js";
 
-router.route("/users").post(registerUser).get(protect, admin, getUsers);
+router.route("/").post(registerUser).get(protect, admin, getUsers);
 
-router.post("/users/logout", logoutUser);
-router.post("/users/auth", authUser);
+router.post("/logout", logoutUser);
+router.post("/auth", authUser);
 router
-  .route("/users/profile")
+  .route("/profile")
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
 router
-  .route("/users/:id")
+  .route("/:id")
   .delete(protect, admin, deleteUser)
   .get(protect, admin, getUserById)
   .put(protect, admin, updateUser);

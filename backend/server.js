@@ -1,4 +1,5 @@
 import path from "path";
+import { fileURLToPath } from "url";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -9,7 +10,7 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
-import cors from "cors";
+// import cors from "cors";
 import colors from "colors";
 
 dotenv.config();
@@ -17,36 +18,57 @@ dotenv.config();
 ConnectDB();
 
 const port = process.env.PORT;
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
 app.use("/uploads", express.static("uploads"));
-app.use('/images', express.static('images'));
+app.use("/images", express.static("images"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//     credentials: true,
+//   })
+// );
 
 // Cookie parser middleware
 app.use(cookieParser());
 
+app.get("/", (req, res) => {
+  console.log("Request received for the homepage");
+  res.send("API is running...");
+});
+
 //PROSHOP
 // app.use("/", orderRoute);
-app.use("/api", productRoutes);
-app.use("/api", userRoutes);
-app.use("/api", orderRoutes);
-app.use("/api", uploadRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/upload", uploadRoutes);
 
 app.get("/api/config/paypal", (req, res) =>
   res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
 );
 
-// const __dirname = path.resolve(); 
+// const __dirname = path.resolve();
 // app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
+if (process.env.NODE_ENV === "production") {
+  console.log("Serving frontend in production mode");
+  // set static folder
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+  // any route that is not api will be redirected to index.html
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "../frontend/dist", "index.html"))
+  );
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running...");
+  });
+}
 
 app.use(errorHandler);
 

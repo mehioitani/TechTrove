@@ -11,12 +11,12 @@ import {
 import { protect, admin } from "../middlewares/authMiddleware.js";
 
 router
-  .route("/orders")
+  .route("/")
   .post(protect, addOrderItems)
   .get(protect, admin, getOrders);
 
-router.route("/orders/mine").get(protect, getMyOrders);
-router.route("/orders/:id").get(protect, getOrderById);
-router.route("/orders/:id/pay").put(protect, updateOrderToPaid);
-router.route("/orders/:id/deliver").put(protect, admin, updateOrderToDelivered);
+router.route("/mine").get(protect, getMyOrders);
+router.route("/:id").get(protect, getOrderById);
+router.route("/:id/pay").put(protect, updateOrderToPaid);
+router.route("/:id/deliver").put(protect, admin, updateOrderToDelivered);
 export default router;
