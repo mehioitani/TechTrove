@@ -14,6 +14,7 @@ import {
 import Rating from "../components/rating.jsx";
 import Loader from "../components/loader.jsx";
 import Message from "../components/message.jsx";
+import Meta from "../components/meta.jsx";
 import {
   useGetProductsDetailsQuery,
   useCreateReviewMutation,
@@ -83,6 +84,7 @@ const ProductPage = () => {
         </Message>
       ) : (
         <>
+          <Meta title={product.name} />
           <Row>
             <Col md={5}>
               <Image src={product.image} alt={product.name} fluid />
