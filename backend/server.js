@@ -28,18 +28,17 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: "https://tech-trove-q4d4heyvt-muhieddines-projects.vercel.app/",
-    
+    // origin: "https://tech-trove-q4d4heyvt-muhieddines-projects.vercel.app/",
+    origin: "*",
+
     credentials: true,
   })
-  
-); 
+);
 
 // Cookie parser middleware
 app.use(cookieParser());
 
-
-const buildPath = path.join(__dirname, '../frontend/dist'); 
+const buildPath = path.join(__dirname, "../frontend/dist");
 app.use(express.static(buildPath));
 //PROSHOP
 // app.use("/", orderRoute);
@@ -52,23 +51,19 @@ app.get("/api/config/paypal", (req, res) =>
   res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
 );
 
-
 // Catch-all handler to serve index.html for any other routes
-app.get('*', (req, res) => {
- res.sendFile(path.join(buildPath, 'index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(buildPath, "index.html"));
 });
-
 
 app.use(errorHandler);
 
 app.listen(port, () => console.log("server is listening to port: ", port));
 
-
 // app.get("/api", (req, res) => {
 //   console.log("Request received for the homepage");
 //   res.send("API is running...");
 // });
-
 
 // const __dirname = path.resolve();
 // app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
