@@ -17,8 +17,6 @@ dotenv.config();
 
 ConnectDB();
 
-app.use(cors({ origin: "https://tech-trove-ecru.vercel.app", credentials: true }));
-
 const port = process.env.PORT;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,7 +26,7 @@ app.use("/images", express.static("images"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
+app.use(cors({ origin: "https://tech-trove-ecru.vercel.app", credentials: true }));
 
 // Cookie parser middleware
 app.use(cookieParser());
