@@ -28,8 +28,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    // origin: "https://tech-trove-q4d4heyvt-muhieddines-projects.vercel.app/",
-    origin: "*",
+    origin: "https://tech-trove-ecru.vercel.app/",
+    // origin: "*",
 
     credentials: true,
   })
