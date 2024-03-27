@@ -9,7 +9,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         url: `${USERS_URL}/auth`,
         method: "POST",
         body: data,
-        // credentials: "include",
+        credentials: "include",
       }),
     }),
     register: builder.mutation({
@@ -17,14 +17,14 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         url: `${USERS_URL}`,
         method: "POST",
         body: data,
-        // credentials: "include",
+        credentials: "include",
       }),
     }),
     logout: builder.mutation({
       query: () => ({
         url: `${USERS_URL}/logout`,
         method: "POST",
-        // credentials: "include",
+        credentials: "include",
       }),
     }),
     profile: builder.mutation({
@@ -32,13 +32,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         url: `${USERS_URL}/profile`,
         method: "PUT",
         body: data,
-        // credentials: "include",
+        credentials: "include",
       }),
     }),
     getUsers: builder.query({
       query: () => ({
         url: USERS_URL,
-        // credentials: "include",
+        credentials: "include",
       }),
       // to refetch or if we don't do it we need to reload the page
       providesTags: ["Users"],
@@ -48,13 +48,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       query: (userId) => ({
         url: `${USERS_URL}/${userId}`,
         method: "DELETE",
-        // credentials: "include",
+        credentials: "include",
       }),
     }),
     getUserDetails: builder.query({
       query: (userId) => ({
         url: `${USERS_URL}/${userId}`,
-        // credentials: "include",
+        credentials: "include",
       }),
       keepUnusedDataFor: 5,
     }),
@@ -64,7 +64,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         url: `${USERS_URL}/${data.userId}`,
         method: "PUT",
         body: data,
-        // credentials: "include",
+        credentials: "include",
       }),
       invalidatesTags: ["Users"],
     }),
