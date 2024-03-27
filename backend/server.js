@@ -26,8 +26,8 @@ app.use("/images", express.static("images"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors({ origin: "https://tech-trove-ecru.vercel.app", credentials: true }));
-
+app.use(cors({ origin:"*", credentials: true }));
+// origin: "https://tech-trove-ecru.vercel.app"
 // Cookie parser middleware
 app.use(cookieParser());
 
