@@ -32,7 +32,7 @@ app.use(
     credentials: true,
   })
   
-);
+); 
 
 // Cookie parser middleware
 app.use(cookieParser());
