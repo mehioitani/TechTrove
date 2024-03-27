@@ -28,10 +28,12 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: "*",
-    // credentials: true,
+    origin: "https://tech-trove-q4d4heyvt-muhieddines-projects.vercel.app/",
+    
+    credentials: true,
   })
-);
+  
+); 
 
 // Cookie parser middleware
 app.use(cookieParser());
