@@ -1,5 +1,5 @@
 import path from "path";
-import { fileURLToPath } from "url";
+// import { fileURLToPath } from "url";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -45,9 +45,9 @@ app.get("/api/config/paypal", (req, res) =>
 );
 
 // Catch-all handler to serve index.html for any other routes
-app.get("*", (req, res) => {
-  res.sendFile(path.join(buildPath, "index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(buildPath, "index.html"));
+// });
 
 app.use(errorHandler);
 
