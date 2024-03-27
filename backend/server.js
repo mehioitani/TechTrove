@@ -18,8 +18,8 @@ dotenv.config();
 ConnectDB();
 
 const port = process.env.PORT;
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 const app = express();
 app.use("/uploads", express.static("uploads"));
 app.use("/images", express.static("images"));
@@ -31,8 +31,8 @@ app.use(cors({ origin:"*", credentials: true }));
 // Cookie parser middleware
 app.use(cookieParser());
 
-const buildPath = path.join(__dirname, "../frontend/dist");
-app.use(express.static(buildPath));
+// const buildPath = path.join(__dirname, "../frontend/dist");
+// app.use(express.static(buildPath));
 //PROSHOP
 // app.use("/", orderRoute);
 app.use("/api/products", productRoutes);
