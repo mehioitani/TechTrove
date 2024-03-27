@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: "https://tech-trove-ecru.vercel.app/",
+    origin: "http://localhost:5173/",
     // origin: "*",
 
     credentials: true,
