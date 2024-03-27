@@ -27,14 +27,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
-  cors({
-    origin: "http://localhost:5173/",
-    // origin: "*",
-
-    credentials: true,
-  })
+  cors()
 );
+// {
+//   origin: "http://localhost:5173/",
+//   // origin: "*",
 
+//   credentials: true,
+// }
 // Cookie parser middleware
 app.use(cookieParser());
 
