@@ -10,7 +10,7 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
-// import cors from "cors";
+import cors from "cors";
 import colors from "colors";
 
 dotenv.config();
@@ -26,13 +26,8 @@ app.use("/images", express.static("images"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(cors());
-// {
-//   origin: "http://localhost:5173/",
-//   // origin: "*",
+app.use(cors({ origin: "https://techtrove-1.onrender.com/", credentials: true }));
 
-//   credentials: true,
-// }
 // Cookie parser middleware
 app.use(cookieParser());
 
