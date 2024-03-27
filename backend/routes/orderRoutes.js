@@ -12,7 +12,7 @@ import { protect, admin } from "../middlewares/authMiddleware.js";
 
 router
   .route("/")
-  .post(protect, addOrderItems)
+  .post( addOrderItems)
   .get(protect, admin, getOrders);
 
 router.route("/mine").get(protect, getMyOrders);
