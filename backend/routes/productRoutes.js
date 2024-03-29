@@ -7,13 +7,13 @@ import {
   createProduct,
   updateProduct,
   createProductReview,
-  // getTopProducts,
+  getTopProducts,
 } from "../controller/productController.js";
 import { protect, admin } from "../middlewares/authMiddleware.js";
 
 router.route("/products").get(getProducts).post(protect, admin, createProduct);
 router.route("/products/:id/reviews").post(protect,createProductReview);
-// router.get("/top", getTopProducts);
+router.get("/products/top", getTopProducts);
 router
   .route("/products/:id")
   .get(getProductById)
