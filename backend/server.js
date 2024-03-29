@@ -18,15 +18,18 @@ ConnectDB();
 const port = process.env.PORT;
 const __dirname = path.resolve();
 const app = express();
-app.use(express.static(path.join(__dirname, '/frontend/dist')));
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
 app.use("/uploads", express.static("uploads"));
-app.use('/images', express.static('images'));
+app.use("/images", express.static("images"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://techtrove-8.onrender.com"
+        : "http://localhost:3000",
     credentials: true,
   })
 );
@@ -45,14 +48,14 @@ app.get("/api/config/paypal", (req, res) =>
   res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
 );
 
-if (process.env.NODE_ENV === 'production') {
-app.get('*', (req, res) => {
-  console.log('Serving index.html for:', req.originalUrl);
-  const indexPath = path.join(__dirname, 'frontend', 'dist', 'index.html');
-  console.log('Path to index.html:', indexPath);
-  res.sendFile(indexPath);
- });}
- 
+if (process.env.NODE_ENV === "production") {
+  app.get("*", (req, res) => {
+    console.log("Serving index.html for:", req.originalUrl);
+    const indexPath = path.join(__dirname, "frontend", "dist", "index.html");
+    console.log("Path to index.html:", indexPath);
+    res.sendFile(indexPath);
+  });
+}
 
 //  if (process.env.NODE_ENV === 'production') {
 //   const __dirname = path.resolve();
@@ -70,9 +73,7 @@ app.get('*', (req, res) => {
 //   });
 // }
 
-
-
-// const __dirname = path.resolve(); 
+// const __dirname = path.resolve();
 // app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.use(errorHandler);
