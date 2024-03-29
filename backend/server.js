@@ -26,10 +26,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? "https://techtrove-8.onrender.com"
-        : "http://localhost:3000",
+    origin: "https://techtrove-8.onrender.com",
+
     credentials: true,
   })
 );
@@ -48,14 +46,14 @@ app.get("/api/config/paypal", (req, res) =>
   res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
 );
 
-if (process.env.NODE_ENV === "production") {
+// if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     console.log("Serving index.html for:", req.originalUrl);
     const indexPath = path.join(__dirname, "frontend", "dist", "index.html");
     console.log("Path to index.html:", indexPath);
     res.sendFile(indexPath);
   });
-}
+// }
 
 //  if (process.env.NODE_ENV === 'production') {
 //   const __dirname = path.resolve();
