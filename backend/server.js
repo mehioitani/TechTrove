@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: "https://techtrove-ijiz.onrender.com",
+    origin: "https://techtrove-9.onrender.com",
 
     credentials: true,
   })
