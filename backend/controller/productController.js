@@ -13,7 +13,7 @@ const getProducts = asyncHandler(async (req, res) => {
     ? { name: { $regex: req.query.keyword, $options: "i" } }
     : {};
 
-  // get the number of products
+  // get the number of products 
   // we pass the keyword also in count because we don't want it to limit the count so the countDocuments in addition to the keywords
   const count = await Product.countDocuments({ ...keyword });
   // .skip (if we are on the 2nd page we want to skip products on the first page, etc...)
